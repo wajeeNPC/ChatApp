@@ -15,7 +15,7 @@ function App() {
           <Route path="/" element={<UserAuth/>}/>
           <Route path="/signup" element={<SignUp/>}/>
           <Route path="/login" element={<Login/>}/>
-          <Route path="/dashbored" element={<Dashbored/>}/>
+          <Route path="/dashboard" element={<Dashbored/>}/>
         </Routes>
     </HashRouter>
   </QueryClientProvider>
