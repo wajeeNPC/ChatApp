@@ -12,8 +12,6 @@ router.post("/",async(req,res)=>{
             return res.status(400).json({message:error.details[0].message});
         }
 
-        
-
         const userFound = await User.findOne({email:req.body.email})
         if(userFound){
             return res.status(409).json({message:"The user already exist"})
