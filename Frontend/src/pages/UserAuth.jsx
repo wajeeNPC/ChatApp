@@ -6,14 +6,12 @@ import Login from './Login'
 
 const UserAuth = () => {
 
-    const [userLoged,setUserLoged] = useState(true)
+    const [userLoged,setUserLoged] = useState(false)
 
   return (
-    <div className=' bg-black min-h-screen min-w-screen flex justify-center items-center'>
-        <div className=' bg-white w-[500px] h-[500px]'>
-            {userLoged ? (<Login/>):(<SignUp/>)}
-        </div>
-    </div>
+    <div>
+      {userLoged ? (<Login/>):(<SignUp/>)}
+    </div>   
   )
 }
 
