@@ -1,32 +1,14 @@
-const router = require("express").Router();
-const { User, validate} = require("../models/userSchema");
-const bcrypt = require("bcrypt");
+const express = require("express");
+const { signupUser,loginUser } = require('../controller/userController')
+const router = express.Router()
 
 
-//create user
-router.post("/",async(req,res)=>{
-    try{
-        const {error} = validate(req.body)
+//login Route
+router.post('/login',loginUser)
 
-        if(error){
-            return res.status(400).json({message:error.details[0].message});
-        }
+//register route
+router.post('/signup',signupUser)
 
-        const userFound = await User.findOne({email:req.body.email})
-        if(userFound){
-            return res.status(409).json({message:"The user already exist"})
-        }
 
-        const salt = await bcrypt.genSalt(Number(process.env.SALT));
-        const hashPassword = await bcrypt.hash(req.body.password,salt);
-
-        await User.create({...req.body,password:hashPassword}).save
-        res.status(200).json({message:"User created succesfully"})
-
-    }catch(error){
-        console.log(error)
-        res.status(500).json({message:"Internal Server Error"})
-    }
-})
 
 module.exports = router

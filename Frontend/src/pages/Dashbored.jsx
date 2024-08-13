@@ -1,9 +1,13 @@
 import React, { useState } from 'react'
 import { default_pic, prof_pic } from '../assets'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 
 
 const Dashbored = () => {
+
+    const {user} = useAuthContext()
+    console.log(user)
 
     const [contacts,setContacts] = useState([
         {
