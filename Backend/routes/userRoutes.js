@@ -1,14 +1,10 @@
 const express = require("express");
-const { signupUser,loginUser } = require('../controller/userController')
+const { getContacts } = require('../controller/userController')
 const router = express.Router()
+const requireAuth = require('../middleware/requireAuth')
 
-
-//login Route
-router.post('/login',loginUser)
-
-//register route
-router.post('/signup',signupUser)
-
+//getting user contacts
+router.get('/contacts',requireAuth,getContacts)
 
 
 module.exports = router
