@@ -1,19 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { authService } from '../services/auth.service'
+import { useLogin } from '../hooks/useLogin'
+
 
 
 const Login = () => {
 
   const navigate = useNavigate()
 
-  //const [sc,setsc] = useState('none')
-  //const [content,setContent] = useState('loading')
+  const {login,error,isLoading} = useLogin()
 
   const [logData,setLogData] = useState({
     email:"",
     password:""
   })
+
+  console.log(error)
+  console.log(isLoading)
 
   const handleInput = (e) =>{
     const {name,value} = e.target;
@@ -23,18 +26,25 @@ const Login = () => {
     })
   }
 
+  const handleSubmit = async (e) =>{
+    e.preventDefault()
+
+    await login(logData.email,logData.password)
+  }
+
+  //useEffect(()=>{
+    //if(!isLoading){
+    //  if(!error){
+    //    navigate("/dashboard", { replace: true, state: { forceRefresh: true } })
+     // }else if(error){
+     //   alert(error)
+    //  }
+  //  }
+ //},[isLoading,error])
+
   console.log(logData)
 
-  const handleSubmit = () =>{
-    authService.login(logData.email,logData.password).then(function(response){
-      if(response === true){
-        console.log(response)
-        navigate('/dashboard')
-      }else{
-        alert(response)
-      }
-    })
-  }
+  
 
 
   return (
@@ -53,8 +63,8 @@ const Login = () => {
                 <input type='text' className=' w-[300px] h-[40px] bg-slate-300' name='password' onChange={handleInput}/>
                 </div>
 
-                <button className=' bg-blue-500 w-[300px] h-[40px] text-white' onClick={handleSubmit}>Log in</button>
-                <div>Don't have an account? <span className=' cursor-pointer text-blue-500'>Sign up</span></div>
+                <button className=' bg-blue-500 w-[300px] h-[40px] text-white' onClick={handleSubmit} disabled={isLoading}>Log in</button>
+                <div>Don't have an account? <span className=' cursor-pointer text-blue-500' onClick={()=>{navigate('/signup')}}>Sign up</span></div>
             </div>
             </div>
             </div>

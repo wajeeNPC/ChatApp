@@ -1,14 +1,15 @@
 import Dashbored from "./Dashbored";
+import Home from "./Home";
 import Login from "./Login";
+import Navbar from "./Navbar";
 import SignUp from "./SignUp";
-import UserAuth from "./UserAuth";
-
 
 
 
 export {
     SignUp,
     Login,
-    UserAuth,
-    Dashbored
+    Dashbored,
+    Home,
+    Navbar
 }
